@@ -36,13 +36,17 @@ def find_all_series(url,p):
     # Parse the HTML content of the page using Beautiful Soup
     soup = BeautifulSoup(response.content, 'html.parser')
 
+    name = url[15:-1]
+
+
     source_element = soup.findAll('a')
     for i in source_element:
-        if 'katsute-kami' in i['href']:
+        if name in i['href']:
             for j in i:
                 if 'серия' in j:
                     j = re.sub('\ серия$', '', j)
-                    jutsu(f'https://jut.su/katsute-kami/episode-{j}.html',p)
+                    jutsu(f'https://jut.su/{name}/episode-{j}.html',p)
                     time.sleep(1)
 
 
+find_all_series('https://jut.su/katsute-kami/',1080)
